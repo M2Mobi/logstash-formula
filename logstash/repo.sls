@@ -7,7 +7,7 @@ logstash-repo-key:
 logstash-repo:
   pkgrepo.managed:
     - humanname: Logstash Debian Repository
-    - name: deb http://packages.elasticsearch.org/logstash/2.2/debian stable main
+    - name: deb http://packages.elasticsearch.org/logstash/2.3/debian stable main
     - require:
       - cmd: logstash-repo-key
 {%- elif grains['os_family'] == 'RedHat' %}
@@ -18,8 +18,8 @@ logstash-repo-key:
 
 logstash-repo:
   pkgrepo.managed:
-    - humanname: logstash repository for 2.2.x packages
-    - baseurl: http://packages.elasticsearch.org/logstash/2.2/centos
+    - humanname: logstash repository for 2.3.x packages
+    - baseurl: http://packages.elasticsearch.org/logstash/2.3/centos
     - gpgcheck: 1
     - gpgkey: http://packages.elasticsearch.org/GPG-KEY-elasticsearch
     - enabled: 1
