@@ -2,6 +2,8 @@
 
 include:
   - .repo
+  - .geolite
+  - packages.openjdk
 
 logstash-pkg:
   pkg.{{logstash.pkgstate}}:
