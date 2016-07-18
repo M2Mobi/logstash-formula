@@ -86,6 +86,30 @@ logstash-config-outputs:
     - name: /etc/logstash/conf.d/03-outputs.conf
 {%- endif %}
 
+{%- if logstash.patterns is defined %}
+logstash-custom-pattern-directory:
+  file.directory:
+    - name: /etc/logstash/patterns
+    - user: root
+    - group: root
+    - mode: 755
+
+{%- for name, patterns in logstash.patterns.items() %}
+logstash-custom-pattern-{{ name }}:
+  file.managed:
+    - name: /etc/logstash/patterns/{{ name }}
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - file: logstash-custom-pattern-directory
+    - contents: |
+{%- for identifer, pattern in patterns.items() %}
+        {{ identifer }} {{ pattern }}
+{%- endfor %}
+{%- endfor %}
+{%- endif%}
+
 logstash-svc:
   service.running:
     - name: {{logstash.svc}}
